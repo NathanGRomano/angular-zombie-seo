@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "test": "./node_modules/.bin/mocha test",
+    "test": "./node_modules/.bin/mocha test --ui bdd -R spec",
     "start": "node server"
   },
   "main": "./app.js",
