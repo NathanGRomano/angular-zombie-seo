@@ -9,7 +9,6 @@
     "start": "node server"
   },
   "main": "./app.js",
-<<<<<<< HEAD
   "dependencies": {
     "express": "~3.3.8",
     "request": "~2.27.0",
@@ -17,12 +16,6 @@
   },
   "devDependencies": {
     "mocha": "~1.12.1"
-=======
-  "dependencies": {},
-  "devDependencies": {
-    "mocha": "~1.12.1",
-    "supertest": "~0.7.1"
->>>>>>> 750013170152459497f4793e339b9e5568ce74f2
   },
   "engines": {
     "node": ">=0.8.0"
