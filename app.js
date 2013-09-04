@@ -16,8 +16,8 @@ var app = express();
  */
 
 app.configure(function () {
+	if (process.env.NODE_ENV != 'test') app.use(express.logger('dev'));
 	app.set('port', process.env.PORT || 3000);
-	app.use(express.logger('dev'));
 	app.use(routes.proxy.middleware);
 
 });
