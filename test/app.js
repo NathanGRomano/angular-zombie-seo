@@ -1,23 +1,42 @@
 var assert = require('assert')
-  , request = require('supertest')
+	, request = require('request')
+	, http = require('http')
 	, app = require('../.')
 
-decribe('given the app is running', function () {
+var server;
 
-	describe('when a request is made with ?_escaped_fragment_ in the path' function (done) {
+before(function (done) {
+	server = http.createServer(app).listen(3000, function () {  done() });
+});
+
+describe('given the app is running', function () {
+
+	describe('when a request is made with ?_escaped_fragment_ in the path', function () {
 
 		it('then should return us a page', function (done) {
+			this.timeout(30000);
+			var options = {
+				uri: 'http://localhost:'+app.get('port')+'/?_escaped_fragment_=/matches',
+				headers: {
+					'Host': 'pingpong.manta.com'
+				}
+			};
+			request(options, function (err, res, body) {
+				
+				if (err) return done(err);
+				assert.equal(!body.match("Nate \"Balls of Fury\" Romano"), false);
+				done();
 
-			request(app)
-				.get('/test?_escaped_fragment_=/route')
-				.status(200)
-				.done(function (err, res) {
-					if (err) return done(err);
-					done();
-				});
+			});
 
 		});
 
 	})
 
+});
+
+after(function (done) {
+	server.close(function () {
+		done();
+	});
 });
