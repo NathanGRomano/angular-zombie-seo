@@ -6,6 +6,8 @@ var express = require('express')
   , router = new express.Router()
 	, zombie = require('zombie')
 
+zombie.loadCSS = false;
+
 /*
  * Our bindings
  */
