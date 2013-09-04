@@ -1,17 +1,20 @@
 {
   "name": "angular-zombie-seo",
-	"author": "Nathan G. Romano <nathan.g.romano@gmail>",
+  "author": "Nathan G. Romano <nathan.g.romano@gmail>",
   "description": "make your angular apps seo friendly",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-		"test": "./node_modules/.bin/mocha test"
+    "test": "./node_modules/.bin/mocha test",
     "start": "node server"
   },
-	"main":"./app.js",
-  "dependencies": {
-  },
+  "main": "./app.js",
+  "dependencies": {},
   "devDependencies": {
+    "mocha": "~1.12.1",
+    "supertest": "~0.7.1"
   },
-	"engines" : { "node" : ">=0.8.0" } 
+  "engines": {
+    "node": ">=0.8.0"
+  }
 }
