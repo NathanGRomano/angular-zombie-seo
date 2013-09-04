@@ -7,6 +7,9 @@ return the rendered page.
 
     npm test
 
+There is a file test.conf.  This file is used by test/app.js to pull in the
+configuration for the request and the assertion.
+
 ## Running the application (dev)
 
     PORT=3000 npm start
