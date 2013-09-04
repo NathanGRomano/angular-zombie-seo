@@ -1,5 +1,4 @@
 var assert = require('assert')
-	, request = require('request')
 	, http = require('http')
 	, app = require('../.')
 
@@ -11,23 +10,38 @@ before(function (done) {
 
 describe('given the app is running', function () {
 
-	describe('when a request is made with ?_escaped_fragment_ in the path', function (done) {
+	describe('when a request is made with "?_escaped_fragment_" in the originalUrl', function (done) {
 
 		it('then should return us a page', function (done) {
 			this.timeout(30000);
-			var options = {
-				uri: 'http://localhost:'+app.get('port')+'/?_escaped_fragment_=/matches',
+
+			 var options = {
+				url: 'http://localhost:'+app.get('port')+'/?_escaped_fragment_=/matches',
+				hostname: 'localhost',
+				port: app.get('port'),
+				method: 'GET',
+				path: '/?_escaped_fragment_=/matches',
 				headers: {
-					'Host': 'pingpong.manta.com'
+						'Host': 'pingpong.manta.com'
 				}
 			};
-			request(options, function (err, res, body) {
-				
-				if (err) return done(err);
-				assert.equal(!body.match("Nate \"Balls of Fury\" Romano"), false);
-				done();
 
+			var req = http.request(options, function (res) {
+				var data = '';
+				res.setEncoding('utf8');
+				res.on('data', function (chunk) {
+					data = data + chunk;
+				});
+				res.on('end', function () {
+					assert.equal(!data.match("Nate \"Balls of Fury\" Romano"), false);
+					done();
+				});
+				res.on('error', function (err) {
+					done(e);
+				});
 			});
+
+			req.end();
 
 		});
 
