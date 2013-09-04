@@ -1,6 +1,7 @@
 var assert = require('assert')
 	, http = require('http')
 	, app = require('../.')
+	, test = require('../test.conf')
 
 var server;
 
@@ -15,25 +16,14 @@ describe('given the app is running', function () {
 		it('then it should return us a page', function (done) {
 			this.timeout(30000);
 
-			 var options = {
-				url: 'http://localhost:'+app.get('port')+'/?_escaped_fragment_=/matches',
-				hostname: 'localhost',
-				port: app.get('port'),
-				method: 'GET',
-				path: '/?_escaped_fragment_=/matches',
-				headers: {
-						'Host': 'pingpong.manta.com'
-				}
-			};
-
-			var req = http.request(options, function (res) {
+			var req = http.request(test.request, function (res) {
 				var data = '';
 				res.setEncoding('utf8');
 				res.on('data', function (chunk) {
 					data = data + chunk;
 				});
 				res.on('end', function () {
-					assert.equal(!data.match("Nate \"Balls of Fury\" Romano"), false);
+					assert.equal(test.check(data), true);
 					done();
 				});
 				res.on('error', function (err) {
