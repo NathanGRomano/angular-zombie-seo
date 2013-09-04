@@ -11,7 +11,7 @@ before(function (done) {
 
 describe('given the app is running', function () {
 
-	describe('when a request is made with ?_escaped_fragment_ in the path', function () {
+	describe('when a request is made with ?_escaped_fragment_ in the path', function (done) {
 
 		it('then should return us a page', function (done) {
 			this.timeout(30000);
