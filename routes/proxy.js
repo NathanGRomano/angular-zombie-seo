@@ -6,8 +6,6 @@ var express = require('express')
   , router = new express.Router()
 	, zombie = require('zombie')
 
-zombie.loadCSS = false;
-
 /*
  * Our bindings
  */
@@ -29,10 +27,9 @@ function proxy (req, res, next) {
 	url = url.replace('?_escaped_fragment_=', '#');
 
 	//ask zombie to visit it
-	zombie.visit(url, function (err, browser, status) {
-			
+	zombie.visit(url, {loadCSS:false, waitDuration:'1s'}, function (err, browser, status) {
+		if (err) return next(err);
 		res.end(browser.html());
-
 	});
 
 }
